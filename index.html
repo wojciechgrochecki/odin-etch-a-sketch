@@ -6,11 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="game-logic.js"></script>
+    <script defer src="game-logic.js"></script>
     <title>Etch a sketch</title>
 </head>
 
 <body>
+
+    <div class="options">
+        <input class="slider" type="range" min="1" max="64" value="16">
+        <p>Value:<span id="slider-value"> 16 x 16</span></p>
+    </div>
     <div class="sketch-board"></div>
 </body>
 
