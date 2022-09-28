@@ -1,35 +1,36 @@
 * {
     box-sizing: border-box;
-    margin: 0;
     padding: 0;
+    margin: 0;
 }
 
 html,
 body {
     width: 100%;
     height: 100%;
-    background-color: rgb(95, 89, 89);
+    background-color: whitesmoke;
+
 }
 
 body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
 }
 
 .sketch-board {
-    box-sizing: content-box;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     width: 500px;
     height: 500px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .sketch-board div {
-    background-color: rgb(207, 200, 200);
-    /* experimental: */
-    flex: 1 0 auto;
-
+    background-color: whitesmoke;
 }
 
 .slider {
@@ -61,4 +62,9 @@ body {
     height: 25px;
     background: #04AA6D;
     cursor: pointer;
+}
+
+#slider-value {
+    text-align: center;
+    margin-bottom: 5px;
 }

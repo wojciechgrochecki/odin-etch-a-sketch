@@ -26,12 +26,11 @@ function randomRgbColor() {
 
 function prepareBoard(size) {
     sketchBoard.innerHTML = "";
-    let height = Number(sketchBoard.clientHeight);
+    sketchBoard.style.gridTemplateColumns = "repeat(" + size + ",1fr)";
+    sketchBoard.style.gridTemplateRows = "repeat(" + size + ",1fr)";
     let items = size * size;
     for (let i = 0; i < items; ++i) {
         let div = document.createElement('div');
-        div.style.height = (height / size) + 'px';
-        div.style.width = (height / size) + 'px';
         div.addEventListener('mouseenter', paintDiv);
         div.addEventListener('mousedown', paintDiv);
         sketchBoard.appendChild(div);
