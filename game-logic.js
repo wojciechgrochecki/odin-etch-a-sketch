@@ -1,4 +1,5 @@
-let g_gameMode = "normal";
+let g_rainbowMode = false;
+let g_eraseMode = false;
 let g_currentColor = "#000000";
 let g_backgroundColor = "whitesmoke";
 
@@ -7,7 +8,8 @@ let slider = document.querySelector(".slider");
 let sliderValue = document.getElementById("slider-value");
 let brushColorPicker = document.getElementById('paint-color');
 let bgColorPicker = document.getElementById('bg-color');
-
+let eraserButton = document.getElementById('eraser');
+let rainbowButton = document.getElementById('rainbow-mode');
 
 
 bgColorPicker.addEventListener('input', (e) => {
@@ -19,10 +21,15 @@ brushColorPicker.addEventListener('change', (e) => {
     g_currentColor = e.target.value;
 });
 
-document.getElementById('eraser').addEventListener('click', () => { g_gameMode = "erase" });
+eraserButton.addEventListener('click', (e) => {
+    setModeAndClass('eraser', e.target.classList.contains('active'));
+});
+
+rainbowButton.addEventListener('click', (e) => {
+    setModeAndClass('rainbow', e.target.classList.contains('active'));
+});
+
 document.getElementById('clear').addEventListener('click', () => { changeBoardBackground(); });
-document.getElementById('normal-mode').addEventListener('click', () => { g_gameMode = "normal"; });
-document.getElementById('rainbow-mode').addEventListener('click', () => { g_gameMode = "rainbow"; });
 
 document.body.ondragstart = () => { return false; };
 
@@ -36,14 +43,13 @@ slider.addEventListener('change', (e) => {
 
 function paintDiv(e) {
     if (e.which == 1) {
-        if (g_gameMode === "rainbow") { e.target.style.backgroundColor = randomRgbColor(); }
-        else if (g_gameMode === "normal") {
-            e.target.style.backgroundColor = g_currentColor;
-        }
-        else if (g_gameMode === "erase") {
+        if (g_rainbowMode) { e.target.style.backgroundColor = randomRgbColor(); }
+        else if (g_eraseMode) {
             e.target.style.backgroundColor = g_backgroundColor;
         }
-
+        else {
+            e.target.style.backgroundColor = g_currentColor;
+        }
     }
 }
 
@@ -59,15 +65,40 @@ function randomRgbColor() {
     return `rgba(${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)})`;
 }
 
+function setModeAndClass(name, deleteClass) {
+    if (deleteClass) {
+        rainbowButton.classList.remove('active');
+        eraserButton.classList.remove('active');
+        g_rainbowMode = false;
+        g_eraseMode = false;
+    }
+    else {
+        if (name === 'rainbow') {
+            rainbowButton.classList.add('active');
+            g_rainbowMode = true;
+            eraserButton.classList.remove('active');
+            g_eraseMode = false;
+        }
+        else if (name === 'eraser') {
+            eraserButton.classList.add('active');
+            g_eraseMode = true;
+            rainbowButton.classList.remove('active');
+            g_rainbowMode = false;
+        }
+    }
+}
+
 function prepareBoard(size) {
     sketchBoard.innerHTML = "";
     sketchBoard.style.gridTemplateColumns = "repeat(" + size + ",1fr)";
     sketchBoard.style.gridTemplateRows = "repeat(" + size + ",1fr)";
+
     let items = size * size;
     for (let i = 0; i < items; ++i) {
         let div = document.createElement('div');
         div.addEventListener('mouseenter', paintDiv);
         div.addEventListener('mousedown', paintDiv);
+        div.style.backgroundColor = g_backgroundColor;
         sketchBoard.appendChild(div);
     }
 }

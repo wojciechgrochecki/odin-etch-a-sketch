@@ -37,9 +37,6 @@ main {
     cursor: crosshair;
 }
 
-.sketch-board div {
-    background-color: whitesmoke;
-}
 
 .options {
     display: flex;
@@ -56,11 +53,6 @@ main {
     background-color: cornflowerblue;
     color: black;
     cursor: pointer;
-}
-
-.options button:hover {
-    color: cornflowerblue;
-    background-color: black;
 }
 
 .slider {
@@ -111,17 +103,22 @@ main {
     cursor: pointer;
     display: block;
     margin: 0 auto;
-    border-radius: 20px;
+    border-radius: 50%;
 
 }
 
 input[type="color"]::-webkit-color-swatch-wrapper {
     padding: 0;
-    border-radius: 20px;
+    border-radius: 50%;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 input[type="color"]::-webkit-color-swatch {
     border: none;
-    border-radius: 20px;
+    border-radius: 50%;
+}
+
+button.active {
+    color: cornflowerblue;
+    background-color: black;
 }
