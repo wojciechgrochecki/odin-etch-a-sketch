@@ -1,8 +1,30 @@
-document.body.ondragstart = () => { return false; };
+let g_gameMode = "normal";
+let g_currentColor = "#000000";
+let g_backgroundColor = "whitesmoke";
 
 let sketchBoard = document.querySelector('.sketch-board');
 let slider = document.querySelector(".slider");
 let sliderValue = document.getElementById("slider-value");
+let brushColorPicker = document.getElementById('paint-color');
+let bgColorPicker = document.getElementById('bg-color');
+
+
+
+bgColorPicker.addEventListener('input', (e) => {
+    g_backgroundColor = e.target.value;
+    changeBoardBackground();
+});
+
+brushColorPicker.addEventListener('change', (e) => {
+    g_currentColor = e.target.value;
+});
+
+document.getElementById('eraser').addEventListener('click', () => { g_gameMode = "erase" });
+document.getElementById('clear').addEventListener('click', () => { changeBoardBackground(); });
+document.getElementById('normal-mode').addEventListener('click', () => { g_gameMode = "normal"; });
+document.getElementById('rainbow-mode').addEventListener('click', () => { g_gameMode = "rainbow"; });
+
+document.body.ondragstart = () => { return false; };
 
 slider.addEventListener('input', (e) => {
     sliderValue.textContent = ' ' + e.target.value + ' x ' + e.target.value;
@@ -14,14 +36,27 @@ slider.addEventListener('change', (e) => {
 
 function paintDiv(e) {
     if (e.which == 1) {
-        console.log(randomRgbColor());
-        e.target.style.backgroundColor = randomRgbColor();
-    }
+        if (g_gameMode === "rainbow") { e.target.style.backgroundColor = randomRgbColor(); }
+        else if (g_gameMode === "normal") {
+            e.target.style.backgroundColor = g_currentColor;
+        }
+        else if (g_gameMode === "erase") {
+            e.target.style.backgroundColor = g_backgroundColor;
+        }
 
+    }
+}
+
+function changeBoardBackground() {
+    let divs = sketchBoard.childNodes;
+    let length = divs.length;
+    for (let i = 0; i < length; ++i) {
+        divs[i].style.backgroundColor = g_backgroundColor;
+    }
 }
 
 function randomRgbColor() {
-    return `rgb(${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)})`
+    return `rgba(${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)})`;
 }
 
 function prepareBoard(size) {
