@@ -26,12 +26,28 @@
         </div>
 
         <div class="sketch-section">
-            <div class="sketch-board"></div>
+            <!-- wrap so i don't need to add modal (.storage-div) to html everytime i clear sketch-board innerHtml in js script -->
+            <div class="sketch-board-wrap">
+                <div class="sketch-board">
+                </div>
+                <div class="storage-div">
+                    <!-- div to show when user clicks save button -->
+                    <div class="save-option-div">
+                        <label for="painting-name">Name your painting</label>
+                        <input type="text" name="painting-name" id="painting-name">
+                        <div class="action-buttons"><button class="ok-button">Ok</button>
+                            <button class="cancel-button">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="storage-buttons">
                 <button id="save-painting">Save</button>
                 <button id="paste-painting">Paste</button>
             </div>
+
         </div>
+
 
     </main>
 </body>
