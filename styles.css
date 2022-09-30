@@ -69,6 +69,12 @@ main {
     cursor: pointer;
 }
 
+.options button:hover,
+.storage-buttons button:hover {
+    color: cornflowerblue;
+    background-color: black;
+}
+
 .slider {
     -webkit-appearance: none;
     width: 100%;
@@ -106,7 +112,7 @@ main {
     margin-bottom: 5px;
 }
 
-#paint-color,
+#brush-color,
 #bg-color {
     -webkit-appearance: none;
     border: none;
