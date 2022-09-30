@@ -14,11 +14,10 @@
     <h1>Etch a sketch</h1>
     <main>
         <div class="options">
-            <label for="paint-color">Brush color</label>
+            <label for="paint-color">Paint</label>
             <input id="paint-color" type="color">
-            <label for="bg-color">Background color</label>
+            <label for="bg-color">Background</label>
             <input id="bg-color" type="color" value="#f5f5f5">
-            <!-- <button id="normal-mode">Normal Mode</button> -->
             <button id="rainbow-mode">Rainbow Mode</button>
             <button id="eraser">Erase Mode</button>
             <button id="clear">Clear</button>
@@ -26,7 +25,14 @@
             <p id="slider-value">16 x 16</p>
         </div>
 
-        <div class="sketch-board"></div>
+        <div class="sketch-section">
+            <div class="sketch-board"></div>
+            <div class="storage-buttons">
+                <button id="save-painting">Save</button>
+                <button id="paste-painting">Paste</button>
+            </div>
+        </div>
+
     </main>
 </body>
 

@@ -26,6 +26,13 @@ main {
     padding: 0 20px 30px;
 }
 
+.sketch-section {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .sketch-board {
     display: grid;
     width: 500px;
@@ -35,6 +42,12 @@ main {
     align-self: center;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     cursor: crosshair;
+}
+
+.storage-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 
@@ -47,7 +60,8 @@ main {
     text-align: center;
 }
 
-.options button {
+.options button,
+.storage-buttons button {
     padding: 10px 25px;
     border: none;
     background-color: cornflowerblue;
