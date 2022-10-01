@@ -30,13 +30,16 @@
             <div class="sketch-board-wrap">
                 <div class="sketch-board">
                 </div>
-                <div class="storage-div">
+                <div id="storage-div">
                     <!-- div to show when user clicks save button -->
-                    <div class="save-option-div">
+                    <div id="save-option-div">
                         <label for="painting-name">Name your painting</label>
-                        <input type="text" name="painting-name" id="painting-name">
-                        <div class="action-buttons"><button class="ok-button">Ok</button>
-                            <button class="cancel-button">Cancel</button>
+                        <div class="input">
+                            <input type="text" name="painting-name" id="painting-name">
+                            <p id="input-message"></p>
+                        </div>
+                        <div class="action-buttons"><button id="name-ok" disabled>Ok</button>
+                            <button id="name-cancel">Cancel</button>
                         </div>
                     </div>
                 </div>

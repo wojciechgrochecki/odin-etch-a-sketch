@@ -10,10 +10,26 @@ let brushColor = document.getElementById('brush-color');
 let bgColor = document.getElementById('bg-color');
 let eraserButton = document.getElementById('eraser');
 let rainbowButton = document.getElementById('rainbow-mode');
+let paintingNameInput = document.getElementById('painting-name');
+let inputMessage = document.getElementById('input-message');
+let storageDiv = document.getElementById('storage-div');
 
 
 document.getElementById('save-painting').addEventListener('click', () => { savePainting(); })
 document.getElementById('paste-painting').addEventListener('click', () => { retrieveItem(); })
+
+
+
+// working on local storage here
+let nameOkButton = document.getElementById('name-ok');
+nameOkButton.addEventListener('click', () => {
+    let name = paintingNameInput.value.trim();
+    resetSaveModal();
+    storePainting(name);
+
+});
+document.getElementById('name-cancel').addEventListener('click', resetSaveModal);
+paintingNameInput.addEventListener('input', validateInput);
 
 bgColor.addEventListener('input', (e) => {
     g_backgroundColor = e.target.value;
@@ -97,12 +113,12 @@ function setModeAndClass(btnName, deleteClass) {
 }
 
 function savePainting() {
-    let divs = Array.from(sketchBoard.childNodes);
+    storageDiv.style.display = "flex";
 }
 
-function storePainting() {
+function storePainting(name) {
     let boardState = getBoardState();
-    localStorage.setItem('painting', JSON.stringify(boardState));
+    localStorage.setItem(name, JSON.stringify(boardState));
 }
 
 function getBoardState() {
@@ -150,4 +166,40 @@ function createBoard(size, colorArray) {
     }
 }
 
+function validateInput() {
+    let name = paintingNameInput.value.trim();
+    if (name !== "") {
+        for (let i = 0; i < localStorage.length; i++) {
+            if (name === localStorage.key(i)) {
+                inputMessage.textContent = "Provided name is taken"
+                paintingNameInput.style.border = "2px solid red";
+                inputMessage.style.opacity = 0.8;
+                nameOkButton.disabled = true;
+                return;
+            }
+        }
+        inputMessage.textContent = "";
+        paintingNameInput.style.border = "2px solid green";
+        inputMessage.style.opacity = 0;
+        nameOkButton.disabled = false;
+        return;
+    }
+    inputMessage.textContent = "Name cannot be empty";
+    paintingNameInput.style.border = "2px solid red";
+    inputMessage.style.opacity = 1;
+    nameOkButton.disabled = true;
+}
+
+function resetSaveModal() {
+    inputMessage.textContent = "";
+    inputMessage.style.opacity = 0;
+    paintingNameInput.style.border = "2px solid black";
+    paintingNameInput.value = "";
+    nameOkButton.disabled = true;
+    storageDiv.style.display = "none";
+}
+
+
 createBoard(16);
+
+
