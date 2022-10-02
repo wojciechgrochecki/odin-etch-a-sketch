@@ -30,7 +30,7 @@
             <div class="sketch-board-wrap">
                 <div class="sketch-board">
                 </div>
-                <div id="storage-div">
+                <div class="storage-div" id="save-div">
                     <!-- div to show when user clicks save button -->
                     <div id="save-option-div">
                         <label for="painting-name">Name your painting</label>
@@ -43,14 +43,28 @@
                         </div>
                     </div>
                 </div>
+                <div class="storage-div" id="paste-div">
+                    <div id="paste-option-div">
+                        <h3 class="board-name">Board name</h3>
+                        <div class="small-board-wrap">
+                            <div id="small-board"></div>
+                            <div class="small-board-actions">
+                                <button class="paste-board">Paste</button>
+                                <button class="delete-board">Delete</button>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <button id="previous">Previous</button>
+                            <button id="next">Next</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="storage-buttons">
                 <button id="save-painting">Save</button>
                 <button id="paste-painting">Paste</button>
             </div>
-
         </div>
-
 
     </main>
 </body>

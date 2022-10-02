@@ -12,11 +12,14 @@ let eraserButton = document.getElementById('eraser');
 let rainbowButton = document.getElementById('rainbow-mode');
 let paintingNameInput = document.getElementById('painting-name');
 let inputMessage = document.getElementById('input-message');
-let storageDiv = document.getElementById('storage-div');
+let saveDiv = document.getElementById('save-div');
+let smallBoard = document.getElementById('small-board');
+let pasteDiv = document.getElementById('paste-div');
+
 
 
 document.getElementById('save-painting').addEventListener('click', () => { savePainting(); })
-document.getElementById('paste-painting').addEventListener('click', () => { retrieveItem(); })
+document.getElementById('paste-painting').addEventListener('click', () => { pastePainting() })
 
 
 
@@ -113,7 +116,8 @@ function setModeAndClass(btnName, deleteClass) {
 }
 
 function savePainting() {
-    storageDiv.style.display = "flex";
+    saveDiv.style.display = "flex";
+    sketchBoard.style.filter = "blur(2px)"
 }
 
 function storePainting(name) {
@@ -132,11 +136,30 @@ function getBoardState() {
     return boardState;
 }
 
-function retrieveItem(key = 'painting') {
-    let boardState = JSON.parse(localStorage.getItem(key));
-    createBoard(boardState.size, boardState.colorArray);
+function pastePainting() {
+    pasteDiv.style.display = "flex";
+    sketchBoard.style.filter = "blur(2px)";
+    retrieveItem(localStorage.key(0));
 }
 
+function retrieveItem(key) {
+    let boardState = JSON.parse(localStorage.getItem(key));
+    loadStorageBoard(boardState.size, boardState.colorArray);
+}
+
+////////////////////////
+function loadStorageBoard(size, colorArray) {
+    smallBoard.innerHTML = "";
+    smallBoard.style.gridTemplateColumns = "repeat(" + size + ",1fr)";
+    smallBoard.style.gridTemplateRows = "repeat(" + size + ",1fr)";
+
+    let length = size * size;
+    for (let i = 0; i < length; ++i) {
+        let div = document.createElement('div');
+        div.style.backgroundColor = colorArray[i];
+        smallBoard.appendChild(div);
+    }
+}
 
 
 function createBoard(size, colorArray) {
@@ -196,7 +219,8 @@ function resetSaveModal() {
     paintingNameInput.style.border = "2px solid black";
     paintingNameInput.value = "";
     nameOkButton.disabled = true;
-    storageDiv.style.display = "none";
+    saveDiv.style.display = "none";
+    sketchBoard.style.filter = "blur(0)"
 }
 
 
