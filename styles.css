@@ -60,20 +60,47 @@ main {
     text-align: center;
 }
 
-.options button,
-.storage-buttons button {
-    padding: 10px 25px;
-    border: none;
-    background-color: cornflowerblue;
-    color: black;
+/* start of button styling */
+
+.options-button {
+    background-image: linear-gradient(to bottom, #fff, #f8eedb);
+    border: 0 solid #e5e7eb;
+    border-radius: .5rem;
+    color: #482307;
     cursor: pointer;
+    display: flex;
+    font-size: 100%;
+    font-weight: 700;
+    line-height: 8px;
+    margin: 0;
+    justify-content: center;
+    padding: 1rem;
+    transition: all .1s cubic-bezier(.4, 0, .2, 1);
+    box-shadow: -6px 8px 10px rgba(81, 41, 10, 0.1), 0px 2px 2px rgba(81, 41, 10, 0.2);
 }
 
-.options button:hover,
-.storage-buttons button:hover {
-    color: cornflowerblue;
-    background-color: black;
+.options-button:active {
+    box-shadow: -1px 2px 5px rgba(81, 41, 10, 0.15), 0px 1px 1px rgba(81, 41, 10, 0.15);
+    transform: translateY(0.125rem);
 }
+
+.options-button:disabled,
+.options-button[disabled] {
+    background-image: none;
+    background-color: gray;
+}
+
+.options-button:disabled:active,
+.options-button[disabled]:active {
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.active {
+    box-shadow: rgba(72, 35, 7, .46) 0 0 0 4px, -6px 8px 10px rgba(81, 41, 10, 0.1), 0px 2px 2px rgba(81, 41, 10, 0.2);
+}
+
+/* end of button styling */
 
 .slider {
     -webkit-appearance: none;
@@ -138,12 +165,6 @@ input[type="color"]::-webkit-color-swatch {
     border-radius: 50%;
 }
 
-button.active {
-    color: cornflowerblue;
-    background-color: black;
-}
-
-
 .sketch-board {
     position: relative;
     transition: 0.5s filter linear;
@@ -191,8 +212,10 @@ button.active {
     background-color: whitesmoke;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     border-radius: 10px;
-    gap: 20px;
-    padding: 15px 60px;
+    gap: 10px;
+    padding: 15px 20px;
+    width: 250px;
+    height: fit-content;
 }
 
 #save-option-div .action-buttons {
@@ -202,19 +225,24 @@ button.active {
     justify-content: space-between;
 }
 
+.input {
+    width: 100%;
+}
+
 .input p {
     opacity: 0;
-    color: red;
-
+    color: rgb(192, 49, 49);
+    text-align: center;
 }
 
 #painting-name {
-    border: 2px solid black;
+    display: block;
+    border-radius: 10px;
+    padding: 5px 10px;
+    width: 100%;
 }
 
 #painting-name:focus {
-    border: 2px solid black;
-    border-radius: 0px;
     outline: none;
 }
 
@@ -233,7 +261,7 @@ button.active {
 
 #paste-option-div {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     flex-direction: column;
     width: 100%;
@@ -251,8 +279,8 @@ button.active {
 
 #small-board {
     border-radius: 10px;
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     display: grid;
     overflow: hidden;
     opacity: 1;
@@ -278,18 +306,38 @@ button.active {
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     transition: 0.5s ease;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }
 
 .small-board-actions button:nth-of-type(2) {
     margin-left: 10px;
 }
 
-#paste-option-div .buttons {
+#paste-option-div .gallery-navigation {
     display: flex;
     width: 100%;
     justify-content: space-around;
     align-items: center;
 }
+
+#previous, #next {
+    font-size: 12px;
+    padding: 0.75rem;
+}
+
+#name-ok, #name-cancel {
+    font-size: 12px;
+    padding: 0.5rem 0.75rem;
+}
+
+#empty-ok {
+    font-size: 12px;
+    padding: 0.75rem;
+    align-self: stretch;
+}
+
 
 #gallery-empty-modal {
     justify-content: center;
@@ -304,11 +352,14 @@ button.active {
     background-color: whitesmoke;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     border-radius: 10px;
-    padding: 10px 20px;
+    padding: 10px 30px;
+    width: 250px;
+    min-height: 100px;
     gap: 20px;
 }
 
 #close-icon {
     align-self: flex-end;
     cursor: pointer;
+    margin-top: 5px;
 }
