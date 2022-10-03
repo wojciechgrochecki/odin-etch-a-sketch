@@ -168,6 +168,8 @@ button.active {
     overflow-y: auto;
     /* background-color: grey; */
     border-radius: 10px;
+    justify-content: center;
+    align-items: center;
 
 }
 
@@ -189,8 +191,8 @@ button.active {
     background-color: whitesmoke;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     border-radius: 10px;
-    padding: 10px 20px;
     gap: 20px;
+    padding: 15px 60px;
 }
 
 #save-option-div .action-buttons {
@@ -216,6 +218,19 @@ button.active {
     outline: none;
 }
 
+.storage-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 400px;
+    height: 400px;
+    background-color: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
 #paste-option-div {
     display: flex;
     justify-content: center;
@@ -223,15 +238,15 @@ button.active {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    padding: 5px;
-    gap: 10px;
-
+    gap: 5px;
 }
+
+
 
 .small-board-wrap {
     position: relative;
+    border: 1px solid black;
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 #small-board {
@@ -274,4 +289,26 @@ button.active {
     width: 100%;
     justify-content: space-around;
     align-items: center;
+}
+
+#gallery-empty-modal {
+    justify-content: center;
+    align-items: center;
+}
+
+.content-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    gap: 20px;
+}
+
+#close-icon {
+    align-self: flex-end;
+    cursor: pointer;
 }

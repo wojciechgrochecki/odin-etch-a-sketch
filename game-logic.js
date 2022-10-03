@@ -2,6 +2,7 @@ let g_rainbowMode = false;
 let g_eraseMode = false;
 let g_brushColor = "#000000";
 let g_backgroundColor = "#f5f5f5";
+let g_localStorageIndex = 0;
 
 let sketchBoard = document.querySelector('.sketch-board');
 let slider = document.querySelector(".slider");
@@ -15,22 +16,76 @@ let inputMessage = document.getElementById('input-message');
 let saveDiv = document.getElementById('save-div');
 let smallBoard = document.getElementById('small-board');
 let pasteDiv = document.getElementById('paste-div');
+let smallBoardName = document.getElementById('small-board-name');
+let galleryEmptyModal = document.getElementById('gallery-empty-modal');
+let emptyOk = document.getElementById('empty-ok');
 
 
+document.getElementById('close-icon').addEventListener('click', () => {
+    pasteDiv.style.display = "none";
+    sketchBoard.style.filter = "blur(0)";
+})
 
-document.getElementById('save-painting').addEventListener('click', () => { savePainting(); })
-document.getElementById('paste-painting').addEventListener('click', () => { pastePainting() })
+document.getElementById('save-painting').addEventListener('click', () => {
+    preventModalStacking();
+    saveDiv.style.display = "flex";
+    sketchBoard.style.filter = "blur(2px)"
+});
+document.getElementById('gallery').addEventListener('click', () => {
+    preventModalStacking();
+    showPaintingGallery()
+});
+
+document.getElementById('empty-ok').addEventListener('click', () => {
+    galleryEmptyModal.style.display = "none";
+    sketchBoard.style.filter = "blur(0)";
+});
+
+document.getElementById('paste-board').addEventListener('click', () => {
+    let painting = JSON.parse(localStorage.getItem('paintingsArray'))[g_localStorageIndex];
+    createBoard(painting.size, painting.colorArray);
+    pasteDiv.style.display = "none";
+    sketchBoard.style.filter = "blur(0)";
+});
+
+document.getElementById('delete-board').addEventListener('click', () => {
+    let paintingsArray = JSON.parse(localStorage.getItem('paintingsArray'));
+    paintingsArray.splice(g_localStorageIndex, 1);
+    localStorage.setItem('paintingsArray', JSON.stringify(paintingsArray));
+    if (g_localStorageIndex >= paintingsArray.length)
+        g_localStorageIndex = paintingsArray.length - 1;
+
+    try { loadStorageBoard(paintingsArray[g_localStorageIndex]); }
+    catch (error) {
+        emptyGalleryHandling();
+    }
+});
+
+document.getElementById('next').addEventListener('click', () => {
+    let paintingsNumber = JSON.parse(localStorage.getItem('paintingsArray')).length - 1;
+    if (g_localStorageIndex < paintingsNumber) {
+        ++g_localStorageIndex;
+        retrieveItem();
+        return;
+    }
+
+});
+
+document.getElementById('previous').addEventListener('click', () => {
+    if (g_localStorageIndex > 0) {
+        --g_localStorageIndex;
+        retrieveItem();
+    }
+});
 
 
-
-// working on local storage here
 let nameOkButton = document.getElementById('name-ok');
 nameOkButton.addEventListener('click', () => {
     let name = paintingNameInput.value.trim();
     resetSaveModal();
     storePainting(name);
-
 });
+
 document.getElementById('name-cancel').addEventListener('click', resetSaveModal);
 paintingNameInput.addEventListener('input', validateInput);
 
@@ -115,18 +170,20 @@ function setModeAndClass(btnName, deleteClass) {
     }
 }
 
-function savePainting() {
-    saveDiv.style.display = "flex";
-    sketchBoard.style.filter = "blur(2px)"
-}
 
 function storePainting(name) {
-    let boardState = getBoardState();
-    localStorage.setItem(name, JSON.stringify(boardState));
+    let boardState = getBoardState(name);
+    let paintingsArray = JSON.parse(localStorage.getItem('paintingsArray'));
+    if (paintingsArray == null) {
+        paintingsArray = [];
+    }
+    paintingsArray.push(boardState);
+    localStorage.setItem('paintingsArray', JSON.stringify(paintingsArray));
 }
 
-function getBoardState() {
+function getBoardState(name) {
     let boardState = {};
+    boardState.name = name;
     boardState.colorArray = [];
     let divsArray = Array.from(sketchBoard.childNodes);
     for (let i = 0; i < divsArray.length; ++i) {
@@ -136,19 +193,27 @@ function getBoardState() {
     return boardState;
 }
 
-function pastePainting() {
+
+function showPaintingGallery() {
     pasteDiv.style.display = "flex";
     sketchBoard.style.filter = "blur(2px)";
-    retrieveItem(localStorage.key(0));
+    retrieveItem();
 }
 
-function retrieveItem(key) {
-    let boardState = JSON.parse(localStorage.getItem(key));
-    loadStorageBoard(boardState.size, boardState.colorArray);
+function retrieveItem() {
+    let boardState;
+    try {
+        boardState = JSON.parse(localStorage.getItem('paintingsArray'))[g_localStorageIndex];
+        loadStorageBoard(boardState);
+    }
+    catch (e) {
+        console.log("gallery is empty");
+        emptyGalleryHandling();
+    }
 }
 
-////////////////////////
-function loadStorageBoard(size, colorArray) {
+function loadStorageBoard(boardState) {
+    let size = boardState.size;
     smallBoard.innerHTML = "";
     smallBoard.style.gridTemplateColumns = "repeat(" + size + ",1fr)";
     smallBoard.style.gridTemplateRows = "repeat(" + size + ",1fr)";
@@ -156,9 +221,10 @@ function loadStorageBoard(size, colorArray) {
     let length = size * size;
     for (let i = 0; i < length; ++i) {
         let div = document.createElement('div');
-        div.style.backgroundColor = colorArray[i];
+        div.style.backgroundColor = boardState.colorArray[i];
         smallBoard.appendChild(div);
     }
+    smallBoardName.textContent = boardState.name;
 }
 
 
@@ -191,9 +257,10 @@ function createBoard(size, colorArray) {
 
 function validateInput() {
     let name = paintingNameInput.value.trim();
+    let paintingsArray = JSON.parse(localStorage.getItem('paintingsArray'));
     if (name !== "") {
-        for (let i = 0; i < localStorage.length; i++) {
-            if (name === localStorage.key(i)) {
+        for (let i = 0; i < paintingsArray.length; i++) {
+            if (name === paintingsArray[i].name) {
                 inputMessage.textContent = "Provided name is taken"
                 paintingNameInput.style.border = "2px solid red";
                 inputMessage.style.opacity = 0.8;
@@ -223,6 +290,18 @@ function resetSaveModal() {
     sketchBoard.style.filter = "blur(0)"
 }
 
+function emptyGalleryHandling() {
+    pasteDiv.style.display = "none";
+    galleryEmptyModal.style.display = "flex";
+}
+
+function preventModalStacking() {
+    let modalArray = Array.from(document.getElementsByClassName('storage-div'));
+    for (let i = 0; i < modalArray.length; ++i) {
+        modalArray[i].style.display = "none";
+    }
+
+}
 
 createBoard(16);
 

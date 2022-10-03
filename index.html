@@ -38,31 +38,40 @@
                             <input type="text" name="painting-name" id="painting-name">
                             <p id="input-message"></p>
                         </div>
-                        <div class="action-buttons"><button id="name-ok" disabled>Ok</button>
+                        <div class="action-buttons"><button id="name-ok" class="ok" disabled>Ok</button>
                             <button id="name-cancel">Cancel</button>
                         </div>
                     </div>
                 </div>
                 <div class="storage-div" id="paste-div">
-                    <div id="paste-option-div">
-                        <h3 class="board-name">Board name</h3>
-                        <div class="small-board-wrap">
-                            <div id="small-board"></div>
-                            <div class="small-board-actions">
-                                <button class="paste-board">Paste</button>
-                                <button class="delete-board">Delete</button>
+                    <div class="storage-content">
+                        <div id="close-icon">&#10006;</div>
+                        <div id="paste-option-div">
+                            <h3 id="small-board-name">Board name</h3>
+                            <div class="small-board-wrap">
+                                <div id="small-board"></div>
+                                <div class="small-board-actions">
+                                    <button id="paste-board">Paste</button>
+                                    <button id="delete-board">Delete</button>
+                                </div>
+                            </div>
+                            <div class="buttons">
+                                <button id="previous">Previous</button>
+                                <button id="next">Next</button>
                             </div>
                         </div>
-                        <div class="buttons">
-                            <button id="previous">Previous</button>
-                            <button id="next">Next</button>
-                        </div>
+                    </div>
+                </div>
+                <div class="storage-div" id="gallery-empty-modal">
+                    <div class="content-wrap">
+                        <div class="content">Gallery is empty</div>
+                        <button id="empty-ok" class="ok">Ok</button>
                     </div>
                 </div>
             </div>
             <div class="storage-buttons">
                 <button id="save-painting">Save</button>
-                <button id="paste-painting">Paste</button>
+                <button id="gallery">Gallery</button>
             </div>
         </div>
 
