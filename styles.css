@@ -1,7 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
+
+
+:root {
+    --secondary-color: rgb(7, 72, 72);
+    --primary-font: 'Roboto';
+}
+
 * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: var(--primary-font);
 }
 
 html,
@@ -13,7 +23,8 @@ body {
 h1 {
     text-align: center;
     padding: 50px 20px;
-    margin-bottom: 20px;
+    font-size: 100px;
+    font-family: 'Caveat';
 }
 
 main {
@@ -60,13 +71,11 @@ main {
     text-align: center;
 }
 
-/* start of button styling */
-
 .options-button {
-    background-image: linear-gradient(to bottom, #fff, #f8eedb);
+    background-image: linear-gradient(to bottom, #fff, whitesmoke);
     border: 0 solid #e5e7eb;
     border-radius: .5rem;
-    color: #482307;
+    color: #000000;
     cursor: pointer;
     display: flex;
     font-size: 100%;
@@ -76,11 +85,12 @@ main {
     justify-content: center;
     padding: 1rem;
     transition: all .1s cubic-bezier(.4, 0, .2, 1);
-    box-shadow: -6px 8px 10px rgba(81, 41, 10, 0.1), 0px 2px 2px rgba(81, 41, 10, 0.2);
+    box-shadow: -6px 8px 10px rgba(48, 44, 42, 0.1), 0px 2px 2px rgba(48, 44, 42, 0.2);
+    font-family: 'Roboto';
 }
 
 .options-button:active {
-    box-shadow: -1px 2px 5px rgba(81, 41, 10, 0.15), 0px 1px 1px rgba(81, 41, 10, 0.15);
+    box-shadow: -1px 2px 5px rgba(48, 44, 42, 0.15), 0px 1px 1px rgba(48, 44, 42, 0.15);
     transform: translateY(0.125rem);
 }
 
@@ -97,10 +107,9 @@ main {
 }
 
 .active {
-    box-shadow: rgba(72, 35, 7, .46) 0 0 0 4px, -6px 8px 10px rgba(81, 41, 10, 0.1), 0px 2px 2px rgba(81, 41, 10, 0.2);
+    box-shadow: rgba(7, 72, 72, 0.46) 0 0 0 4px, -6px 8px 10px rgba(7, 72, 72, 0.1), 0px 2px 2px rgba(7, 72, 72, 0.2);
 }
 
-/* end of button styling */
 
 .slider {
     -webkit-appearance: none;
@@ -112,10 +121,11 @@ main {
     -webkit-transition: .2s;
     transition: opacity .2s;
     margin-bottom: -10px;
+    border-radius: 10px;
 }
 
 .slider:hover {
-    opacity: 1;
+    opacity: 0.9;
 }
 
 .slider::-webkit-slider-thumb {
@@ -123,14 +133,16 @@ main {
     appearance: none;
     width: 25px;
     height: 25px;
-    background: #04AA6D;
+    border-radius: 50%;
+    background: var(--secondary-color);
     cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
     width: 25px;
     height: 25px;
-    background: #04AA6D;
+    border-radius: 50%;
+    background: var(--secondary-color);
     cursor: pointer;
 }
 
@@ -149,7 +161,7 @@ main {
     outline: 0px;
     cursor: pointer;
     display: block;
-    margin: 0 auto;
+    margin: 0 auto 5px;
     border-radius: 50%;
 
 }
@@ -168,7 +180,6 @@ input[type="color"]::-webkit-color-swatch {
 .sketch-board {
     position: relative;
     transition: 0.5s filter linear;
-    /* uncomment later */
     cursor: auto;
 }
 
@@ -183,11 +194,9 @@ input[type="color"]::-webkit-color-swatch {
     position: absolute;
     top: 0;
     left: 0;
-    /* maybe will have to be changed to current sketch-board parameters */
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    /* background-color: grey; */
     border-radius: 10px;
     justify-content: center;
     align-items: center;
@@ -210,10 +219,10 @@ input[type="color"]::-webkit-color-swatch {
     justify-content: center;
     align-items: center;
     background-color: whitesmoke;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     border-radius: 10px;
     gap: 10px;
-    padding: 15px 20px;
+    padding: 15px 30px;
     width: 250px;
     height: fit-content;
 }
@@ -232,7 +241,9 @@ input[type="color"]::-webkit-color-swatch {
 .input p {
     opacity: 0;
     color: rgb(192, 49, 49);
-    text-align: center;
+    transition: opacity 0.5s ease;
+    text-align: left;
+    font-style: italic;
 }
 
 #painting-name {
@@ -240,6 +251,11 @@ input[type="color"]::-webkit-color-swatch {
     border-radius: 10px;
     padding: 5px 10px;
     width: 100%;
+    border: 2px solid var(--secondary-color);
+}
+
+label[for="painting-name"] {
+    font-size: 20px;
 }
 
 #painting-name:focus {
@@ -254,7 +270,7 @@ input[type="color"]::-webkit-color-swatch {
     width: 400px;
     height: 400px;
     background-color: whitesmoke;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     padding: 10px;
     border-radius: 10px;
 }
@@ -273,7 +289,7 @@ input[type="color"]::-webkit-color-swatch {
 
 .small-board-wrap {
     position: relative;
-    border: 1px solid black;
+    border: 2px solid var(--secondary-color);
     border-radius: 10px;
 }
 
@@ -311,8 +327,20 @@ input[type="color"]::-webkit-color-swatch {
     gap: 20px;
 }
 
-.small-board-actions button:nth-of-type(2) {
-    margin-left: 10px;
+#paste-board, #delete-board {
+    transition: background-color 0.5s ease;
+}
+
+#paste-board:hover {
+    background-image: none;
+    background-color: var(--secondary-color);
+    color: whitesmoke;
+}
+
+#delete-board:hover {
+    background-image: none;
+    background-color: #D61C4E;
+    color: whitesmoke;
 }
 
 #paste-option-div .gallery-navigation {
@@ -350,7 +378,7 @@ input[type="color"]::-webkit-color-swatch {
     justify-content: center;
     align-items: center;
     background-color: whitesmoke;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     border-radius: 10px;
     padding: 10px 30px;
     width: 250px;

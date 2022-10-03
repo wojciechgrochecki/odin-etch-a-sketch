@@ -1,6 +1,6 @@
 let g_rainbowMode = false;
 let g_eraseMode = false;
-let g_brushColor = "#000000";
+let g_brushColor = "#8ABCBC";
 let g_backgroundColor = "#f5f5f5";
 let g_localStorageIndex = 0;
 
@@ -18,22 +18,20 @@ let smallBoard = document.getElementById('small-board');
 let pasteDiv = document.getElementById('paste-div');
 let smallBoardName = document.getElementById('small-board-name');
 let galleryEmptyModal = document.getElementById('gallery-empty-modal');
-let emptyOk = document.getElementById('empty-ok');
-
 
 document.getElementById('close-icon').addEventListener('click', () => {
     pasteDiv.style.display = "none";
     sketchBoard.style.filter = "blur(0)";
-})
+});
 
 document.getElementById('save-painting').addEventListener('click', () => {
     preventModalStacking();
     saveDiv.style.display = "flex";
-    sketchBoard.style.filter = "blur(2px)"
+    sketchBoard.style.filter = "blur(2px)";
 });
 document.getElementById('gallery').addEventListener('click', () => {
     preventModalStacking();
-    showPaintingGallery()
+    showPaintingGallery();
 });
 
 document.getElementById('empty-ok').addEventListener('click', () => {
@@ -207,7 +205,6 @@ function retrieveItem() {
         loadStorageBoard(boardState);
     }
     catch (e) {
-        console.log("gallery is empty");
         emptyGalleryHandling();
     }
 }
@@ -262,7 +259,7 @@ function validateInput() {
         try {
             for (let i = 0; i < paintingsArray.length; i++) {
                 if (name === paintingsArray[i].name) {
-                    inputMessage.textContent = "Provided name is taken"
+                    inputMessage.textContent = "Name already taken";
                     paintingNameInput.style.border = "2px solid rgb(192, 49, 49);";
                     inputMessage.style.opacity = 0.8;
                     nameOkButton.disabled = true;
@@ -280,7 +277,7 @@ function validateInput() {
         nameOkButton.disabled = false;
         return;
     }
-    inputMessage.textContent = "Name cannot be empty";
+    inputMessage.textContent = "name cannot be empty";
     paintingNameInput.style.border = "2px solid red";
     inputMessage.style.opacity = 1;
     nameOkButton.disabled = true;
@@ -293,7 +290,7 @@ function resetSaveModal() {
     paintingNameInput.value = "";
     nameOkButton.disabled = true;
     saveDiv.style.display = "none";
-    sketchBoard.style.filter = "blur(0)"
+    sketchBoard.style.filter = "blur(0)";
 }
 
 function emptyGalleryHandling() {
@@ -310,5 +307,3 @@ function preventModalStacking() {
 }
 
 createBoard(16);
-
-
