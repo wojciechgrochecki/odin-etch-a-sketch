@@ -289,11 +289,11 @@ label[for="painting-name"] {
 
 .small-board-wrap {
     position: relative;
-    border: 2px solid var(--secondary-color);
-    border-radius: 10px;
+
 }
 
 #small-board {
+    border: 2px solid var(--secondary-color);
     border-radius: 10px;
     width: 250px;
     height: 250px;

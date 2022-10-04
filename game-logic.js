@@ -259,7 +259,7 @@ function validateInput() {
         try {
             for (let i = 0; i < paintingsArray.length; i++) {
                 if (name === paintingsArray[i].name) {
-                    inputMessage.textContent = "Name already taken";
+                    inputMessage.textContent = "name already taken";
                     paintingNameInput.style.border = "2px solid rgb(192, 49, 49);";
                     inputMessage.style.opacity = 0.8;
                     nameOkButton.disabled = true;
