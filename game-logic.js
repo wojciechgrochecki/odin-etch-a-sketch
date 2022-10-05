@@ -97,12 +97,12 @@ brushColor.addEventListener('input', (e) => {
 });
 
 eraserButton.addEventListener('click', (e) => {
-    setModeAndClass('eraser', e.target.classList.contains('active'));
+    activateButton('eraser');
 });
 
 
 rainbowButton.addEventListener('click', (e) => {
-    setModeAndClass('rainbow', e.target.classList.contains('active'));
+    activateButton('rainbow');
 });
 
 document.getElementById('clear').addEventListener('click', () => { changeBoardBackground(); });
@@ -141,31 +141,51 @@ function randomRgbColor() {
     return `rgba(${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)})`;
 }
 
-function setModeAndClass(btnName, deleteClass) {
-    if (deleteClass) {
-        if (btnName === "rainbow") {
+// function setModeAndClass(btnName, deleteClass) {
+//     if (deleteClass) {
+//         if (btnName === "rainbow") {
+//             rainbowButton.classList.remove('active');
+//             g_rainbowMode = false;
+//         }
+//         else {
+//             g_eraseMode = false;
+//             eraserButton.classList.remove('active');
+//         }
+//     }
+//     else {
+//         if (btnName === 'rainbow') {
+//             rainbowButton.classList.add('active');
+//             g_rainbowMode = true;
+//             eraserButton.classList.remove('active');
+//             g_eraseMode = false;
+//         }
+//         else {
+//             eraserButton.classList.add('active');
+//             g_eraseMode = true;
+//             rainbowButton.classList.remove('active');
+//             g_rainbowMode = false;
+//         }
+//     }
+// }
+
+function activateButton(btnName) {
+    if (btnName == 'rainbow') {
+        rainbowButton.classList.toggle('active');
+        if (g_eraseMode) {
+            eraserButton.classList.remove('active');
+            g_eraseMode = false;
+        }
+        g_rainbowMode = !g_rainbowMode;
+    }
+    else if (btnName == 'eraser') {
+        eraserButton.classList.toggle('active');
+        if (g_rainbowMode) {
             rainbowButton.classList.remove('active');
             g_rainbowMode = false;
         }
-        else {
-            g_eraseMode = false;
-            eraserButton.classList.remove('active');
-        }
+        g_eraseMode = !g_eraseMode;
     }
-    else {
-        if (btnName === 'rainbow') {
-            rainbowButton.classList.add('active');
-            g_rainbowMode = true;
-            eraserButton.classList.remove('active');
-            g_eraseMode = false;
-        }
-        else {
-            eraserButton.classList.add('active');
-            g_eraseMode = true;
-            rainbowButton.classList.remove('active');
-            g_rainbowMode = false;
-        }
-    }
+
 }
 
 
